@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:gravity="center"
+              android:orientation="horizontal">
+
+    <ImageView
+            android:id="@+id/symbols_button"
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="0.12"
+            android:contentDescription="@string/button_description"
+            android:background="#ffffffff"
+            android:src="@drawable/ic_symb"/>
+
+    <EditText
+            android:id="@+id/edit"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="@string/code_hint"
+            android:inputType="textMultiLine|textNoSuggestions"/>
+
+    <ImageButton
+            android:id="@+id/compile_button"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.12"
+            android:contentDescription="@string/button_description"
+            android:background="@android:color/background_light"
+            android:src="@drawable/ic_action_accept"/>
+
+</LinearLayout>
