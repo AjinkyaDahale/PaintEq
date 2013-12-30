@@ -1,6 +1,7 @@
 package com.example.PaintEq;
 
 import android.graphics.Color;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
@@ -14,12 +15,21 @@ import java.util.ArrayList;
 public class EqPadActivity extends FragmentActivity
         implements View.OnClickListener, SymbolsGridAdapter.KeyClickListener {
 
-    private View popUpView;
-    private LinearLayout symbolsCover;
-    private int keyboardHeight;
-    private PopupWindow popupWindow;
-    private EditText content;
+    /* The various views that will be needed in more than a few methods.*/
     private LinearLayout parentLayout;
+    private EditText content;
+    private LinearLayout symbolsCover;
+    private View popUpView;
+    private PopupWindow popupWindow;
+
+    /* This to match our custom sliding pager based keyboard with the device's
+     * original. Feels like a quick hack, but at least has a few methods in place. */
+    private int keyboardHeight;
+    private boolean isKeyBoardVisible;
+    /** This field is used in checking keyboard height. Better understanding would help.*/
+    int previousHeightDifference = 0;
+
+    /* Helper functions. */
 
     /**
      * Code to insert a second backslash before any backslash already present
@@ -126,14 +136,54 @@ public class EqPadActivity extends FragmentActivity
         }
     }
 
-    public void onClick(View v) {
-        WebView w = (WebView) findViewById(R.id.webview);
-        if (/*v == findViewById(R.id.button2) || */ v == findViewById(R.id.compile_button)) {
-            w.loadUrl("javascript:document.getElementById('math').innerHTML='\\\\["
-                    + doubleEscapeTeX(content.getText().toString()) + "\\\\]';");
-            w.loadUrl("javascript:MathJax.Hub.Queue(['Typeset',MathJax.Hub]);");
+    /**
+     * Change the height of our custom keyboard.
+     * @param popUpHeight Desired height
+     */
+    private void changeKeyboardHeight(int popUpHeight) {
+        if (popUpHeight > 100) {
+            keyboardHeight = popUpHeight;
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                    LayoutParams.MATCH_PARENT, keyboardHeight);
+            symbolsCover.setLayoutParams(params);
         }
     }
+
+    // TODO: Change back button functionality.
+    // TODO: Fix issue: Does not behave well in landscape layout.
+    private void checkKeyboardHeight(final View parentLayout) {
+
+        parentLayout.getViewTreeObserver().addOnGlobalLayoutListener(
+                new ViewTreeObserver.OnGlobalLayoutListener() {
+
+                    @Override
+                    public void onGlobalLayout() {
+
+                        Rect r = new Rect();
+                        parentLayout.getWindowVisibleDisplayFrame(r);
+
+                        int screenHeight = parentLayout.getRootView()
+                                .getHeight();
+                        int heightDifference = screenHeight - (r.bottom);
+
+                        if (previousHeightDifference - heightDifference > 50) {
+                            popupWindow.dismiss();
+                        }
+
+                        previousHeightDifference = heightDifference;
+                        if (heightDifference > 100) {
+                            isKeyBoardVisible = true;
+                            changeKeyboardHeight(heightDifference);
+                        } else {
+                            isKeyBoardVisible = false;
+                        }
+
+                    }
+                });
+
+    }
+
+    /* Overridden methods for custom behaviour */
 
     /**
      * Called when the activity is first created.
@@ -164,8 +214,21 @@ public class EqPadActivity extends FragmentActivity
         content.setBackgroundColor(Color.LTGRAY);
         content.setTextColor(Color.BLACK);
 
+        checkKeyboardHeight(parentLayout);
         /** Occupies the space instead of a keyboard if it is not active. */
         symbolsCover = (LinearLayout) findViewById(R.id.footer_for_symbols);
+
+        content.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+
+                if (symbolsCover.getVisibility() == LinearLayout.VISIBLE) {
+                    symbolsCover.setVisibility(LinearLayout.GONE);
+                }
+
+            }
+        });
 
         /** Our custom input view comes as a popup. */
         popUpView = getLayoutInflater().inflate(R.layout.symbols_popup, null);
@@ -199,10 +262,9 @@ public class EqPadActivity extends FragmentActivity
                     popupWindow.dismiss();
                 } else {
 
-                    if (symbolsCover.getVisibility() == LinearLayout.GONE)
-                        symbolsCover.setVisibility(LinearLayout.VISIBLE);
-                    else
+                    if (isKeyBoardVisible)//(symbolsCover.getVisibility() == LinearLayout.GONE)
                         symbolsCover.setVisibility(LinearLayout.GONE);
+                    else symbolsCover.setVisibility(LinearLayout.VISIBLE);
 
                     popupWindow.setHeight(keyboardHeight);
                     popupWindow.showAtLocation(parentLayout, Gravity.BOTTOM, 0, 0);
@@ -212,15 +274,6 @@ public class EqPadActivity extends FragmentActivity
 
         });
 
-    }
-
-    private void changeKeyboardHeight(int popUpHeight) {
-        if (popUpHeight > 100) {
-            keyboardHeight = popUpHeight;
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                    LayoutParams.MATCH_PARENT, keyboardHeight);
-            symbolsCover.setLayoutParams(params);
-        }
     }
 
     @Override
@@ -256,6 +309,8 @@ public class EqPadActivity extends FragmentActivity
         }
     }
 
+    /* Implementations of interfaces */
+
     @Override
     public void keyClickedIndex(String index) {
         // this is to get the the cursor position
@@ -264,4 +319,15 @@ public class EqPadActivity extends FragmentActivity
         // this will get the text and insert the String s into   the current position
         content.getText().insert(start, s);
     }
+
+    @Override
+    public void onClick(View v) {
+        WebView w = (WebView) findViewById(R.id.webview);
+        if (/*v == findViewById(R.id.button2) || */ v == findViewById(R.id.compile_button)) {
+            w.loadUrl("javascript:document.getElementById('math').innerHTML='\\\\["
+                    + doubleEscapeTeX(content.getText().toString()) + "\\\\]';");
+            w.loadUrl("javascript:MathJax.Hub.Queue(['Typeset',MathJax.Hub]);");
+        }
+    }
+
 }

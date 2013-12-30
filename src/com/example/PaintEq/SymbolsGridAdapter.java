@@ -23,6 +23,7 @@ public class SymbolsGridAdapter extends BaseAdapter {
 
     KeyClickListener mListener;
 
+    /** For recent, the path after assets/mathsymbols is encoded in its entirety.*/
     public SymbolsGridAdapter(Context context, ArrayList<String> paths, int pageNumber, KeyClickListener listener) {
         this.mContext = context;
         this.paths = paths;
@@ -31,6 +32,7 @@ public class SymbolsGridAdapter extends BaseAdapter {
         this.groupName = "";
     }
 
+    /** The constructor to call for static Symbol Groups.*/
     public SymbolsGridAdapter(Context context, ArrayList<String> paths, String groupName, int pageNumber, KeyClickListener listener) {
         this.mContext = context;
         this.paths = paths;
