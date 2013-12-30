@@ -1,4 +1,4 @@
-package com.example.PaintEq;
+package com.dahale.ajinkya.painteq;
 
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.PagerAdapter;
@@ -6,7 +6,8 @@ import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
 import android.widget.GridView;
-import com.example.PaintEq.SymbolsGridAdapter.KeyClickListener;
+import com.example.PaintEq.R;
+import com.dahale.ajinkya.painteq.SymbolsGridAdapter.KeyClickListener;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -56,7 +57,7 @@ public class SymbolsPagerAdapter extends PagerAdapter {
                         "first of which is " + a[0] + ".");
                 GridView grid = (GridView) layout.findViewById(R.id.symbols_grid);
                 SymbolsGridAdapter adapter = new SymbolsGridAdapter(
-                        mActivity.getApplicationContext(),new ArrayList<String>(Arrays.asList(a)), groupPaths[position]+"/", position,
+                        mActivity.getApplicationContext(), new ArrayList<String>(Arrays.asList(a)), groupPaths[position] + "/", position,
                         mListener);
                 grid.setAdapter(adapter);
             } catch (IOException e) {

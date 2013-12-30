@@ -1,4 +1,4 @@
-package com.example.PaintEq;
+package com.dahale.ajinkya.painteq;
 
 import android.graphics.Color;
 import android.graphics.Rect;
@@ -26,8 +26,11 @@ public class EqPadActivity extends FragmentActivity
      * original. Feels like a quick hack, but at least has a few methods in place. */
     private int keyboardHeight;
     private boolean isKeyBoardVisible;
-    /** This field is used in checking keyboard height. Better understanding would help.*/
-    int previousHeightDifference = 0;
+
+    /**
+     * This field is used in checking keyboard height. Better understanding would help.
+     */
+    private int previousHeightDifference = 0;
 
     /* Helper functions. */
 
@@ -103,7 +106,7 @@ public class EqPadActivity extends FragmentActivity
         });
 
         // Creating a pop window for paths keyboard
-        popupWindow = new PopupWindow(popUpView, ViewGroup.LayoutParams.MATCH_PARENT,
+        popupWindow = new PopupWindow(popUpView, LayoutParams.MATCH_PARENT,
                 keyboardHeight, false);
 
         popUpView.findViewById(R.id.back).setOnClickListener(new View.OnClickListener() {
@@ -138,6 +141,7 @@ public class EqPadActivity extends FragmentActivity
 
     /**
      * Change the height of our custom keyboard.
+     *
      * @param popUpHeight Desired height
      */
     private void changeKeyboardHeight(int popUpHeight) {
@@ -151,6 +155,7 @@ public class EqPadActivity extends FragmentActivity
 
     // TODO: Change back button functionality.
     // TODO: Fix issue: Does not behave well in landscape layout.
+    // TODO: There is still a bug: 1) Press Sym button; 2) Click on EditText; Cover does not go.
     private void checkKeyboardHeight(final View parentLayout) {
 
         parentLayout.getViewTreeObserver().addOnGlobalLayoutListener(
@@ -261,6 +266,7 @@ public class EqPadActivity extends FragmentActivity
                 if (popupWindow.isShowing()) {
                     popupWindow.dismiss();
                 } else {
+                    content.requestFocus();
 
                     if (isKeyBoardVisible)//(symbolsCover.getVisibility() == LinearLayout.GONE)
                         symbolsCover.setVisibility(LinearLayout.GONE);

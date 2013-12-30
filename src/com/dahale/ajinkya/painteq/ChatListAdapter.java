@@ -1,4 +1,4 @@
-package com.example.PaintEq;
+package com.dahale.ajinkya.painteq;
 
 import android.content.Context;
 import android.text.Spanned;
@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+import com.example.PaintEq.R;
 
 import java.util.ArrayList;
 

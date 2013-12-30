@@ -1,4 +1,4 @@
-package com.example.PaintEq;
+package com.dahale.ajinkya.painteq;
 
 import android.content.Context;
 import android.content.res.AssetManager;
@@ -10,6 +10,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import com.example.PaintEq.R;
 
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -19,11 +20,13 @@ public class SymbolsGridAdapter extends BaseAdapter {
     private String groupName = "";
     private ArrayList<String> paths;
     private int pageNumber;
-    Context mContext;
+    private Context mContext;
 
-    KeyClickListener mListener;
+    private KeyClickListener mListener;
 
-    /** For recent, the path after assets/mathsymbols is encoded in its entirety.*/
+    /**
+     * For recent, the path after assets/mathsymbols is encoded in its entirety.
+     */
     public SymbolsGridAdapter(Context context, ArrayList<String> paths, int pageNumber, KeyClickListener listener) {
         this.mContext = context;
         this.paths = paths;
@@ -32,7 +35,9 @@ public class SymbolsGridAdapter extends BaseAdapter {
         this.groupName = "";
     }
 
-    /** The constructor to call for static Symbol Groups.*/
+    /**
+     * The constructor to call for static Symbol Groups.
+     */
     public SymbolsGridAdapter(Context context, ArrayList<String> paths, String groupName, int pageNumber, KeyClickListener listener) {
         this.mContext = context;
         this.paths = paths;
@@ -89,7 +94,6 @@ public class SymbolsGridAdapter extends BaseAdapter {
         InputStream in = null;
 
         try {
-            // TODO: make it add from other paths.
             in = mngr.open("mathsymbols/" + groupName + path);
         } catch (Exception e) {
             e.printStackTrace();
@@ -110,4 +114,3 @@ public class SymbolsGridAdapter extends BaseAdapter {
         public void keyClickedIndex(String index);
     }
 }
-
