@@ -117,6 +117,15 @@ public class EqPadActivity extends FragmentActivity
                 content.dispatchKeyEvent(event);
             }
         });
+//        popUpView.findViewById(R.id.back).setOnLongClickListener(new View.OnLongClickListener() {
+//
+//            @Override
+//            public boolean onLongClick(View v) {
+//                KeyEvent event = new KeyEvent(0, 0, 0, KeyEvent.KEYCODE_DEL, 0, 0, 0, 0, KeyEvent.KEYCODE_ENDCALL);
+//                content.dispatchKeyEvent(event);
+//                return false;
+//            }
+//        });
 
         popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
 
@@ -150,10 +159,10 @@ public class EqPadActivity extends FragmentActivity
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                     LayoutParams.MATCH_PARENT, keyboardHeight);
             symbolsCover.setLayoutParams(params);
+
         }
     }
 
-    // TODO: Change back button functionality.
     // TODO: Fix issue: Does not behave well in landscape layout.
     // TODO: There is still a bug: 1) Press Sym button; 2) Click on EditText; Cover does not go.
     private void checkKeyboardHeight(final View parentLayout) {
@@ -178,7 +187,9 @@ public class EqPadActivity extends FragmentActivity
                         previousHeightDifference = heightDifference;
                         if (heightDifference > 100) {
                             isKeyBoardVisible = true;
+//                            symbolsCover.setVisibility(LinearLayout.GONE);
                             changeKeyboardHeight(heightDifference);
+                            popupWindow.setHeight(keyboardHeight);
                         } else {
                             isKeyBoardVisible = false;
                         }
@@ -315,15 +326,30 @@ public class EqPadActivity extends FragmentActivity
         }
     }
 
+    /**
+     * Overriding onKeyDown for dismissing keyboard on key down
+     */
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (popupWindow.isShowing() && keyCode==KeyEvent.KEYCODE_BACK) {
+            popupWindow.dismiss();
+            return false;
+        } else {
+            return super.onKeyDown(keyCode, event);
+        }
+    }
+
     /* Implementations of interfaces */
 
     @Override
     public void keyClickedIndex(String index) {
         // this is to get the the cursor position
         int start = content.getSelectionStart();
-        String s = " \\lt ";
+        String s = " \\"+index+" ";
         // this will get the text and insert the String s into   the current position
         content.getText().insert(start, s);
+        content.getText().insert(start, "test");
+        content.setSelection(start+"test".length());
     }
 
     @Override

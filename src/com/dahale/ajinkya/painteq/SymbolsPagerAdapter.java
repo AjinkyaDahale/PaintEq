@@ -6,7 +6,6 @@ import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
 import android.widget.GridView;
-import com.example.PaintEq.R;
 import com.dahale.ajinkya.painteq.SymbolsGridAdapter.KeyClickListener;
 
 import java.io.IOException;

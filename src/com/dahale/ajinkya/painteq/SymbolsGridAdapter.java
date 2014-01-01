@@ -10,14 +10,13 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import com.example.PaintEq.R;
 
 import java.io.InputStream;
 import java.util.ArrayList;
 
 public class SymbolsGridAdapter extends BaseAdapter {
 
-    private String groupName = "";
+    private String groupName;
     private ArrayList<String> paths;
     private int pageNumber;
     private Context mContext;
