@@ -9,13 +9,14 @@ import android.view.*;
 import android.view.ViewGroup.LayoutParams;
 import android.webkit.WebView;
 import android.widget.*;
+import com.dahale.ajinkya.painteq.utils.RepeatListener;
 
 import java.util.ArrayList;
 
 public class EqPadActivity extends FragmentActivity
         implements View.OnClickListener, SymbolsGridAdapter.KeyClickListener {
 
-    /* The various views that will be needed in more than a few methods.*/
+    /* Various views that will be needed in more than a few methods.*/
     private LinearLayout parentLayout;
     private EditText content;
     private LinearLayout symbolsCover;
@@ -109,14 +110,23 @@ public class EqPadActivity extends FragmentActivity
         popupWindow = new PopupWindow(popUpView, LayoutParams.MATCH_PARENT,
                 keyboardHeight, false);
 
-        popUpView.findViewById(R.id.back).setOnClickListener(new View.OnClickListener() {
+//        popUpView.findViewById(R.id.back).setOnClickListener(new View.OnClickListener() {
+//
+//            @Override
+//            public void onClick(View v) {
+//                KeyEvent event = new KeyEvent(0, 0, 0, KeyEvent.KEYCODE_DEL, 0, 0, 0, 0, KeyEvent.KEYCODE_ENDCALL);
+//                content.dispatchKeyEvent(event);
+//            }
+//        });
 
+        popUpView.findViewById(R.id.back).setOnTouchListener(new RepeatListener(400, 100, new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
                 KeyEvent event = new KeyEvent(0, 0, 0, KeyEvent.KEYCODE_DEL, 0, 0, 0, 0, KeyEvent.KEYCODE_ENDCALL);
                 content.dispatchKeyEvent(event);
             }
-        });
+        }));
+
 //        popUpView.findViewById(R.id.back).setOnLongClickListener(new View.OnLongClickListener() {
 //
 //            @Override
@@ -163,7 +173,6 @@ public class EqPadActivity extends FragmentActivity
         }
     }
 
-    // TODO: Fix issue: Does not behave well in landscape layout.
     // TODO: There is still a bug: 1) Press Sym button; 2) Click on EditText; Cover does not go.
     private void checkKeyboardHeight(final View parentLayout) {
 
