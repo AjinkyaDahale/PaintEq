@@ -340,7 +340,7 @@ public class EqPadActivity extends FragmentActivity
      */
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (popupWindow.isShowing() && keyCode==KeyEvent.KEYCODE_BACK) {
+        if (popupWindow.isShowing() && keyCode == KeyEvent.KEYCODE_BACK) {
             popupWindow.dismiss();
             return false;
         } else {
@@ -354,11 +354,11 @@ public class EqPadActivity extends FragmentActivity
     public void keyClickedIndex(String index) {
         // this is to get the the cursor position
         int start = content.getSelectionStart();
-        String s = " \\"+index+" ";
+        String s = " \\" + index + " ";
         // this will get the text and insert the String s into   the current position
         content.getText().insert(start, s);
         content.getText().insert(start, "test");
-        content.setSelection(start+"test".length());
+        content.setSelection(start + "test".length());
     }
 
     @Override

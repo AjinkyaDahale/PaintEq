@@ -3,7 +3,6 @@ package com.dahale.ajinkya.painteq;
 import android.app.Activity;
 import android.os.Bundle;
 import android.webkit.WebView;
-import com.example.PaintEq.R;
 
 public class OrigEqPadActivity extends Activity {
     /**

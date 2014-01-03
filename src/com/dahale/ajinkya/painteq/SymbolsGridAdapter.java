@@ -84,10 +84,6 @@ public class SymbolsGridAdapter extends BaseAdapter {
         return position;
     }
 
-    public int getPageNumber() {
-        return pageNumber;
-    }
-
     private Bitmap getImage(String path) {
         AssetManager mngr = mContext.getAssets();
         InputStream in = null;

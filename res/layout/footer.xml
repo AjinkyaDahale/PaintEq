@@ -20,7 +20,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:hint="@string/code_hint"
-            android:inputType="textMultiLine|textNoSuggestions"/>
+            android:inputType="textMultiLine|textNoSuggestions"
+            android:maxLines="5"/>
 
     <ImageButton
             android:id="@+id/compile_button"
