@@ -9,6 +9,7 @@ import android.view.*;
 import android.view.ViewGroup.LayoutParams;
 import android.webkit.WebView;
 import android.widget.*;
+import com.dahale.ajinkya.painteq.dataprocessing.CSVParser;
 import com.dahale.ajinkya.painteq.utils.RepeatListener;
 
 import java.util.ArrayList;
@@ -299,6 +300,8 @@ public class EqPadActivity extends FragmentActivity
             }
 
         });
+
+        CSVParser.CSV2Map(this);
 
     }
 
