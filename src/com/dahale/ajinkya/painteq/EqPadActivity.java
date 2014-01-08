@@ -301,8 +301,6 @@ public class EqPadActivity extends FragmentActivity
 
         });
 
-        CSVParser.CSV2Map(this);
-
     }
 
     @Override
@@ -357,11 +355,11 @@ public class EqPadActivity extends FragmentActivity
     public void keyClickedIndex(String index) {
         // this is to get the the cursor position
         int start = content.getSelectionStart();
-        String s = " \\" + index + " ";
+        String s = " " + index + " ";
         // this will get the text and insert the String s into   the current position
         content.getText().insert(start, s);
-        content.getText().insert(start, "test");
-        content.setSelection(start + "test".length());
+//        content.getText().insert(start, "test");
+//        content.setSelection(start + "test".length());
     }
 
     @Override

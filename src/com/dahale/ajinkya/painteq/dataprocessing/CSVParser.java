@@ -13,14 +13,22 @@ import java.util.HashMap;
 public class CSVParser {
     private static final String TAG = "CSVParser";
 
-    public static HashMap<String, String> CSV2Map(Context context) {
+    // TODO: Decide on a more appropriate data structure for passing key-code relation.
+    // TODO: Make ways for recent and custom codes.
+
+    /**
+     * Returns a hashmap describing which image uses which symbol.
+     * To use this, save a page "keysdata.csv" in the folder giving the
+     * image name and the symbol code separated by a semicolon at every line.
+     */
+    public static HashMap<String, String> CSV2Map(Context context, String groupName) {
         HashMap<String, String> map = new HashMap<String, String>();
         AssetManager manager = context.getAssets();
         InputStream is = null;
         InputStreamReader isr = null;
         BufferedReader br = null;
         try {
-            is = manager.open("mathsymbols/Greek/keysdata.csv");
+            is = manager.open("mathsymbols/" + groupName + "keysdata.csv");
 
             // create new input stream reader
             isr = new InputStreamReader(is);
@@ -28,18 +36,20 @@ public class CSVParser {
             // create new buffered reader
             br = new BufferedReader(isr);
 
-            String value = "";
+            String value;
 
             // reads to the end of the stream
             while ((value = br.readLine()) != null) {
                 Log.d(TAG, value);
-                for (String s : value.split(";")) {
-                    Log.d(TAG, s);
-                }
+                String[] s2 = value.split(";");
+                map.put(s2[0], s2[1]);
+//                for (String s : value.split(";")) {
+//                    Log.d(TAG, s);
+//                }
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return null;
+        return map;
     }
 }

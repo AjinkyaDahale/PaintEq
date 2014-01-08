@@ -10,9 +10,11 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import com.dahale.ajinkya.painteq.dataprocessing.CSVParser;
 
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class SymbolsGridAdapter extends BaseAdapter {
 
@@ -22,9 +24,18 @@ public class SymbolsGridAdapter extends BaseAdapter {
     private Context mContext;
 
     private KeyClickListener mListener;
+    private HashMap<String, String> mapOfSymbols;
+
+    /**
+     * Try to load the Map if the "keysdata.csv" file is present in the active folder
+     */
+    private void tryLoadingMap() {
+        this.mapOfSymbols = CSVParser.CSV2Map(mContext, groupName);
+    }
 
     /**
      * For recent, the path after assets/mathsymbols is encoded in its entirety.
+     * May change. Let's see.
      */
     public SymbolsGridAdapter(Context context, ArrayList<String> paths, int pageNumber, KeyClickListener listener) {
         this.mContext = context;
@@ -32,6 +43,7 @@ public class SymbolsGridAdapter extends BaseAdapter {
         this.pageNumber = pageNumber;
         this.mListener = listener;
         this.groupName = "";
+        tryLoadingMap();
     }
 
     /**
@@ -43,6 +55,7 @@ public class SymbolsGridAdapter extends BaseAdapter {
         this.groupName = groupName;
         this.pageNumber = pageNumber;
         this.mListener = listener;
+        tryLoadingMap();
     }
 
     public View getView(int position, View convertView, ViewGroup parent) {
@@ -58,13 +71,23 @@ public class SymbolsGridAdapter extends BaseAdapter {
         ImageView image = (ImageView) v.findViewById(R.id.item);
         image.setImageBitmap(getImage(path));
 
-        image.setOnClickListener(new OnClickListener() {
+        if (mapOfSymbols == null) {
+            image.setOnClickListener(new OnClickListener() {
 
-            @Override
-            public void onClick(View v) {
-                mListener.keyClickedIndex(path);
-            }
-        });
+                @Override
+                public void onClick(View v) {
+                    mListener.keyClickedIndex(path);
+                }
+            });
+        } else {
+            image.setOnClickListener(new OnClickListener() {
+
+                @Override
+                public void onClick(View v) {
+                    mListener.keyClickedIndex(mapOfSymbols.get(path));
+                }
+            });
+        }
 
         return v;
     }

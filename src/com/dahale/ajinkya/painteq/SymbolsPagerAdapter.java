@@ -12,6 +12,7 @@ import com.dahale.ajinkya.painteq.SymbolsGridAdapter.KeyClickListener;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 
 public class SymbolsPagerAdapter extends PagerAdapter {
 
@@ -31,7 +32,6 @@ public class SymbolsPagerAdapter extends PagerAdapter {
 
     @Override
     public int getCount() {
-        // TODO: Make this give the actual number of pagers that will need to be generated.
         // For now, it is to show Greek and 2 other (hopefully user-defined).
         return groupPaths.length;
     }
@@ -52,7 +52,7 @@ public class SymbolsPagerAdapter extends PagerAdapter {
                     R.layout.symbols_grid, null);
 
 
-            new AsyncTask<Void,Void,SymbolsGridAdapter>() {
+            new AsyncTask<Void, Void, SymbolsGridAdapter>() {
 
                 /**
                  * Override this method to perform a computation on a background thread. The
