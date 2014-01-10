@@ -5,6 +5,8 @@ import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.*;
 import android.view.ViewGroup.LayoutParams;
 import android.webkit.WebView;
@@ -174,7 +176,7 @@ public class EqPadActivity extends FragmentActivity
         }
     }
 
-    // TODO: There is still a bug: 1) Press Sym button; 2) Click on EditText; Cover does not go.
+    // FIXME: There is still a bug: 1) press Sym button; 2) click on EditText; misbehaves.
     private void checkKeyboardHeight(final View parentLayout) {
 
         parentLayout.getViewTreeObserver().addOnGlobalLayoutListener(
@@ -255,6 +257,26 @@ public class EqPadActivity extends FragmentActivity
 
             }
         });
+
+//        /**
+//         * To be used if you want rendered image to change at every edit.
+//         */
+//        content.addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+//                //To change body of implemented methods use File | Settings | File Templates.
+//            }
+//
+//            @Override
+//            public void onTextChanged(CharSequence s, int start, int before, int count) {
+//                //To change body of implemented methods use File | Settings | File Templates.
+//            }
+//
+//            @Override
+//            public void afterTextChanged(Editable s) {
+//                //To change body of implemented methods use File | Settings | File Templates.
+//            }
+//        });
 
         /** Our custom input view comes as a popup. */
         popUpView = getLayoutInflater().inflate(R.layout.symbols_popup, null);
@@ -355,7 +377,7 @@ public class EqPadActivity extends FragmentActivity
     public void keyClickedIndex(String index) {
         // this is to get the the cursor position
         int start = content.getSelectionStart();
-        String s = " " + index + " ";
+        String s = ((start==0)?"":" ") + index;
         // this will get the text and insert the String s into   the current position
         content.getText().insert(start, s);
 //        content.getText().insert(start, "test");

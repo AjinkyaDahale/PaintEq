@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -16,21 +17,29 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+// TODO: Use different adapters for Recent and Custom Files
+
 public class SymbolsGridAdapter extends BaseAdapter {
 
     private String groupName;
     private ArrayList<String> paths;
     private int pageNumber;
-    private Context mContext;
+    protected Context mContext;
 
     private KeyClickListener mListener;
-    private HashMap<String, String> mapOfSymbols;
+    protected HashMap<String, String> mapOfSymbols;
 
     /**
      * Try to load the Map if the "keysdata.csv" file is present in the active folder
      */
     private void tryLoadingMap() {
-        this.mapOfSymbols = CSVParser.CSV2Map(mContext, groupName);
+        new AsyncTask<Void,Void,Void>() {
+            @Override
+            protected Void doInBackground(Void... params) {
+                SymbolsGridAdapter.this.mapOfSymbols = CSVParser.CSV2Map(mContext, groupName);
+                return null;
+            }
+        }.execute();
     }
 
     /**
@@ -76,10 +85,10 @@ public class SymbolsGridAdapter extends BaseAdapter {
 
                 @Override
                 public void onClick(View v) {
-                    mListener.keyClickedIndex(path);
+                    mListener.keyClickedIndex("\\"+path);
                 }
             });
-        } else {
+        } else if (mapOfSymbols.get(path)!=null){
             image.setOnClickListener(new OnClickListener() {
 
                 @Override

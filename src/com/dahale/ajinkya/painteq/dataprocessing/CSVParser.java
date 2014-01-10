@@ -24,9 +24,9 @@ public class CSVParser {
     public static HashMap<String, String> CSV2Map(Context context, String groupName) {
         HashMap<String, String> map = new HashMap<String, String>();
         AssetManager manager = context.getAssets();
-        InputStream is = null;
-        InputStreamReader isr = null;
-        BufferedReader br = null;
+        InputStream is;
+        InputStreamReader isr;
+        BufferedReader br;
         try {
             is = manager.open("mathsymbols/" + groupName + "keysdata.csv");
 
