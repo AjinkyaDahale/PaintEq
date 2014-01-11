@@ -23,6 +23,8 @@ public class EqPadActivity extends FragmentActivity
     private LinearLayout parentLayout;
     private EditText content;
     private LinearLayout symbolsCover;
+
+    // TODO: Perhaps these two could do well with their own classes
     private View popUpView;
     private PopupWindow popupWindow;
 

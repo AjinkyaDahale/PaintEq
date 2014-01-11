@@ -7,6 +7,7 @@ import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
 import android.widget.GridView;
+import android.widget.ListView;
 import com.dahale.ajinkya.painteq.SymbolsGridAdapter.KeyClickListener;
 
 import java.io.IOException;
@@ -16,6 +17,7 @@ import java.util.HashMap;
 
 public class SymbolsPagerAdapter extends PagerAdapter {
 
+    // TODO: behaves really jaggy. Sort it out.
     private String[] groupPaths;
     ArrayList<String> paths, recent;
     private static final int MAX_NO_OF_RECENT_SYMBOLS = 40;
@@ -46,7 +48,10 @@ public class SymbolsPagerAdapter extends PagerAdapter {
                     R.layout.placeholder, null);
         } else if (position == 1) {
             layout = mActivity.getLayoutInflater().inflate(
-                    R.layout.placeholder, null);
+                    R.layout.custom_symbols_layout, null);
+
+            ((ListView) layout.findViewById(R.id.custom_symbols_list)).setAdapter(new CustomSymbolsAdapter(mActivity,mListener));
+
         } else {
             layout = mActivity.getLayoutInflater().inflate(
                     R.layout.symbols_grid, null);
