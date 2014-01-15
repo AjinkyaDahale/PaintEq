@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-public class CustomSymbolsAdapter extends BaseAdapter{
+public class CustomSymbolsAdapter extends BaseAdapter {
 
     protected Context mContext;
     private SymbolsGridAdapter.KeyClickListener mListener;
@@ -52,6 +52,7 @@ public class CustomSymbolsAdapter extends BaseAdapter{
     }
 
     // TODO: Make a layout suitable to be loaded here.
+
     /**
      * Get a View that displays the data at the specified position in the data set. You can either
      * create a View manually or inflate it from an XML layout file. When the View is inflated, the

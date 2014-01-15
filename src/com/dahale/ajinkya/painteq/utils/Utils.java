@@ -1,7 +1,6 @@
 package com.dahale.ajinkya.painteq.utils;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 
 import java.util.ArrayList;
 
@@ -21,16 +20,28 @@ public class Utils {
     }
 
     public static Utils getUtilsInstance(Context context) {
+        if (recentSymbolPaths == null) {
+            recentSymbolPaths = new ArrayList<String>();
+            recentSymbolCodes = new ArrayList<String>();
+            // TODO: If no ArrayList, make one from the file.
+        }
         return new Utils(context);
     }
 
     // TODO: Complete this here or insert it somewhere else.
+
     /**
      * Inserts a symbol in group "Recent" if not already present. Also removes older symbols.
+     *
      * @param path Path to the image file past the mathsymbols directory
      * @param code Code for the said symbol
      */
     public static void insertRecent(String path, String code) {
+        if (recentSymbolPaths == null) {
+            recentSymbolPaths = new ArrayList<String>();
+            recentSymbolCodes = new ArrayList<String>();
+            // TODO: If no ArrayList, make one from the file.
+        }
         if (!recentSymbolPaths.contains(path)) {
             recentSymbolPaths.add(path);
             recentSymbolCodes.add(code);
@@ -38,11 +49,14 @@ public class Utils {
                 recentSymbolPaths.remove(0);
                 recentSymbolCodes.remove(0);
             }
+        } else {
+            // TODO: If it is already there, make it the most recent.
         }
     }
 
     /**
      * Inserts a symbol in group "Custom".
+     *
      * @param code Code for the custom symbol
      */
     public static void insertCustom(String code) {
@@ -51,6 +65,7 @@ public class Utils {
 
     /**
      * Removes a symbol from the group "Custom".
+     *
      * @param index index of symbol to be removed
      */
     public static void removeCustom(int index) {

@@ -5,13 +5,10 @@ import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.*;
 import android.view.ViewGroup.LayoutParams;
 import android.webkit.WebView;
 import android.widget.*;
-import com.dahale.ajinkya.painteq.dataprocessing.CSVParser;
 import com.dahale.ajinkya.painteq.utils.RepeatListener;
 
 import java.util.ArrayList;
@@ -379,7 +376,7 @@ public class EqPadActivity extends FragmentActivity
     public void keyClickedIndex(String index) {
         // this is to get the the cursor position
         int start = content.getSelectionStart();
-        String s = ((start==0)?"":" ") + index;
+        String s = ((start == 0) ? "" : " ") + index;
         // this will get the text and insert the String s into   the current position
         content.getText().insert(start, s);
 //        content.getText().insert(start, "test");

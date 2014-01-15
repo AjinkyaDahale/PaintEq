@@ -6,11 +6,11 @@
               android:orientation="horizontal">
 
     <ImageView xmlns:android="http://schemas.android.com/apk/res/android"
-            android:id="@+id/item"
-            android:layout_width="32sp"
-            android:layout_height="32sp"
-            android:background="@android:color/white"
-            android:contentDescription="@string/button_description"
-            android:focusable="false"/>
+               android:id="@+id/item"
+               android:layout_width="32sp"
+               android:layout_height="32sp"
+               android:background="@android:color/white"
+               android:contentDescription="@string/button_description"
+               android:focusable="false"/>
 
 </LinearLayout>

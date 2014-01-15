@@ -41,11 +41,8 @@ public class CSVParser {
             // reads to the end of the stream
             while ((value = br.readLine()) != null) {
                 Log.d(TAG, value);
-                String[] s2 = value.split(";");
-                map.put(s2[0], s2[1]);
-//                for (String s : value.split(";")) {
-//                    Log.d(TAG, s);
-//                }
+                String[] s = value.split(";");
+                map.put(s[0], s[1]);
             }
         } catch (IOException e) {
             e.printStackTrace();
