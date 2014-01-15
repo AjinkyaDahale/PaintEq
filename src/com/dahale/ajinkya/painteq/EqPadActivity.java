@@ -129,6 +129,13 @@ public class EqPadActivity extends FragmentActivity
             }
         }));
 
+        popUpView.findViewById(R.id.add_symbol).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                (new NewCustomSymbolDialogFragment()).show(EqPadActivity.this.getSupportFragmentManager(),"tag");
+            }
+        });
+
 //        popUpView.findViewById(R.id.back).setOnLongClickListener(new View.OnLongClickListener() {
 //
 //            @Override

@@ -6,15 +6,20 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+import com.dahale.ajinkya.painteq.utils.Utils;
+
+import java.util.ArrayList;
 
 public class CustomSymbolsAdapter extends BaseAdapter {
 
     protected Context mContext;
     private SymbolsGridAdapter.KeyClickListener mListener;
+    private ArrayList<String> customSymbolCodes;
 
     public CustomSymbolsAdapter(Context mContext, SymbolsGridAdapter.KeyClickListener mListener) {
         this.mContext = mContext;
         this.mListener = mListener;
+        customSymbolCodes = Utils.getCustomSymbolCodes();
     }
 
     /**
@@ -24,8 +29,7 @@ public class CustomSymbolsAdapter extends BaseAdapter {
      */
     @Override
     public int getCount() {
-        // TODO: Count is hard-coded. Remove limitation.
-        return 10;
+        return customSymbolCodes.size();
     }
 
     /**
@@ -51,43 +55,29 @@ public class CustomSymbolsAdapter extends BaseAdapter {
         return position;
     }
 
-    // TODO: Make a layout suitable to be loaded here.
+    // TODO: Make a better looking layout.
+    // TODO: Provide edit/delete support.
 
-    /**
-     * Get a View that displays the data at the specified position in the data set. You can either
-     * create a View manually or inflate it from an XML layout file. When the View is inflated, the
-     * parent View (GridView, ListView...) will apply default layout parameters unless you use
-     * {@link android.view.LayoutInflater#inflate(int, android.view.ViewGroup, boolean)}
-     * to specify a root view and to prevent attachment to the root.
-     *
-     * @param position    The position of the item within the adapter's data set of the item whose view
-     *                    we want.
-     * @param convertView The old view to reuse, if possible. Note: You should check that this view
-     *                    is non-null and of an appropriate type before using. If it is not possible to convert
-     *                    this view to display the correct data, this method can create a new view.
-     *                    Heterogeneous lists can specify their number of view types, so that this View is
-     *                    always of the right type (see {@link #getViewTypeCount()} and
-     *                    {@link #getItemViewType(int)}).
-     * @param parent      The parent that this view will eventually be attached to
-     * @return A View corresponding to the data at the specified position.
-     */
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         View v = convertView;
         if (v == null) {
             LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             v = inflater.inflate(android.R.layout.activity_list_item, null);
-            ((TextView) v.findViewById(android.R.id.text1)).setText("Testing");    // TODO: Remove hard-coding
-            v.setOnClickListener(new View.OnClickListener() {
+            if (v != null) {
+                ((TextView) v.findViewById(android.R.id.text1)).setText(customSymbolCodes.get(position));
+                v.setOnClickListener(new View.OnClickListener() {
 
-                @Override
-                public void onClick(View v) {
-                    mListener.keyClickedIndex("Testing");                          // TODO: Remove hard-coding
-                }
-            });
+                    @Override
+                    public void onClick(View v) {
+                        mListener.keyClickedIndex(customSymbolCodes.get(position));
+                    }
+                });
+            }
         }
 
         return v;
     }
+
 
 }

@@ -39,9 +39,14 @@
         <item>Misc-Text</item>
     </string-array>
 
+    <string name="insert_new_symbol">Type new symbol here:</string>
+    <string name="ok">OK</string>
+
     <string name="button_description">Emoticons Button</string>
     <string name="code_hint">Enter code here</string>
     <string name="post">Post</string>
     <string name="back">Back</string>
     <string name="comingsoon">Coming Soon</string>
+    <string name="cancel">Cancel</string>
+    <string name="add_symbol">Add Symbol</string>
 </resources>

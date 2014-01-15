@@ -8,9 +8,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import com.dahale.ajinkya.painteq.utils.Utils;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-
 public class RecentSymbolsGridAdapter extends SymbolsGridAdapter {
     private static final String TAG = "RecentSymbolsGridAdapter";
 

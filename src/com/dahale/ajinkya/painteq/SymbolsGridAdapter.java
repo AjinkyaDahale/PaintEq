@@ -16,7 +16,6 @@ import com.dahale.ajinkya.painteq.utils.Utils;
 
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 
 // TODO: Use different adapters for Recent and Custom Files
@@ -31,8 +30,10 @@ public class SymbolsGridAdapter extends BaseAdapter {
     protected KeyClickListener mListener;
     protected HashMap<String, String> mapOfSymbols;
 
-    /**c
+    /**
+     * c
      * This is to be used by the subclasses in case they want to use custom ways to set the paths.
+     *
      * @param context
      * @param listener
      */
@@ -99,7 +100,7 @@ public class SymbolsGridAdapter extends BaseAdapter {
                 @Override
                 public void onClick(View v) {
                     mListener.keyClickedIndex("\\" + path);
-                    Utils.insertRecent(groupName + path,path);
+                    Utils.insertRecent(groupName + path, path);
                 }
             });
         } else if (mapOfSymbols.get(path) != null) {

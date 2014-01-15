@@ -101,5 +101,4 @@ public class SymbolsPagerAdapter extends PagerAdapter {
         return view == object;
     }
 
-
 }

@@ -13,6 +13,16 @@ public class Utils {
     private Context mContext;
 
     public static ArrayList<String> recentSymbolPaths, recentSymbolCodes;
+
+    public static ArrayList<String> getCustomSymbolCodes() {
+        if (customSymbolCodes==null) customSymbolCodes = new ArrayList<String>();
+        return customSymbolCodes;
+    }
+
+    public static void setCustomSymbolCodes(ArrayList<String> customSymbolCodes) {
+        Utils.customSymbolCodes = customSymbolCodes;
+    }
+
     public static ArrayList<String> customSymbolCodes;
 
     private Utils(Context context) {
@@ -60,7 +70,7 @@ public class Utils {
      * @param code Code for the custom symbol
      */
     public static void insertCustom(String code) {
-        customSymbolCodes.add(code);
+        getCustomSymbolCodes().add(code);
     }
 
     /**
