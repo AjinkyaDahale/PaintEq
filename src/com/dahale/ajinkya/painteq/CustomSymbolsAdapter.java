@@ -63,9 +63,9 @@ public class CustomSymbolsAdapter extends BaseAdapter {
         View v = convertView;
         if (v == null) {
             LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            v = inflater.inflate(android.R.layout.activity_list_item, null);
+            v = inflater.inflate(R.layout.custom_symbols_layout_item, null);
             if (v != null) {
-                ((TextView) v.findViewById(android.R.id.text1)).setText(customSymbolCodes.get(position));
+                ((TextView) v.findViewById(R.id.custom_text)).setText(customSymbolCodes.get(position));
                 v.setOnClickListener(new View.OnClickListener() {
 
                     @Override
@@ -78,6 +78,5 @@ public class CustomSymbolsAdapter extends BaseAdapter {
 
         return v;
     }
-
 
 }

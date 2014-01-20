@@ -7,7 +7,10 @@
     <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/insert_new_symbol"/>
+            android:text="@string/insert_new_symbol"
+            android:textSize="16sp"
+            android:paddingBottom="8dp"
+            android:paddingTop="8dp"/>
     <EditText
             android:id="@+id/new_symbol_edit"
             android:layout_width="match_parent"
