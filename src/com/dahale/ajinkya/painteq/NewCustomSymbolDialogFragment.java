@@ -21,7 +21,7 @@ public class NewCustomSymbolDialogFragment extends DialogFragment {
                         if (v != null) {
                             EditText editText = (EditText) v.findViewById(R.id.new_symbol_edit);
                             if(editText!=null) {
-                                String s = editText.getText().toString();
+                                @SuppressWarnings("ConstantConditions") String s = editText.getText().toString();
                                 if (!s.equals("")) Utils.insertCustom(s);
                             }
                         }

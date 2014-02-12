@@ -185,6 +185,7 @@ public class EqPadActivity extends FragmentActivity
     // FIXME: There is still a bug: 1) press Sym button; 2) click on EditText; misbehaves.
     private void checkKeyboardHeight(final View parentLayout) {
 
+        //noinspection ConstantConditions
         parentLayout.getViewTreeObserver().addOnGlobalLayoutListener(
                 new ViewTreeObserver.OnGlobalLayoutListener() {
 
@@ -194,7 +195,7 @@ public class EqPadActivity extends FragmentActivity
                         Rect r = new Rect();
                         parentLayout.getWindowVisibleDisplayFrame(r);
 
-                        int screenHeight = parentLayout.getRootView()
+                        @SuppressWarnings("ConstantConditions") int screenHeight = parentLayout.getRootView()
                                 .getHeight();
                         int heightDifference = screenHeight - (r.bottom);
 
@@ -353,6 +354,7 @@ public class EqPadActivity extends FragmentActivity
                 e.setText(getExample(exampleIndex++));
                 if (exampleIndex > getResources().getStringArray(R.array.tex_examples).length - 1)
                     exampleIndex = 0;
+                //noinspection ConstantConditions
                 w.loadUrl("javascript:document.getElementById('math').innerHTML='\\\\["
                         + doubleEscapeTeX(e.getText().toString())
                         + "\\\\]';");
@@ -385,6 +387,7 @@ public class EqPadActivity extends FragmentActivity
         int start = content.getSelectionStart();
         String s = ((start == 0) ? "" : " ") + index;
         // this will get the text and insert the String s into   the current position
+        //noinspection ConstantConditions
         content.getText().insert(start, s);
 //        content.getText().insert(start, "test");
 //        content.setSelection(start + "test".length());
@@ -394,6 +397,7 @@ public class EqPadActivity extends FragmentActivity
     public void onClick(View v) {
         WebView w = (WebView) findViewById(R.id.webview);
         if (/*v == findViewById(R.id.button2) || */ v == findViewById(R.id.compile_button)) {
+            //noinspection ConstantConditions
             w.loadUrl("javascript:document.getElementById('math').innerHTML='\\\\["
                     + doubleEscapeTeX(content.getText().toString()) + "\\\\]';");
             w.loadUrl("javascript:MathJax.Hub.Queue(['Typeset',MathJax.Hub]);");
