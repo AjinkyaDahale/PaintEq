@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -11,26 +12,48 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import com.dahale.ajinkya.painteq.dataprocessing.CSVParser;
+import com.dahale.ajinkya.painteq.utils.Utils;
 
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+// TODO: Use different adapters for Recent and Custom Files
+
 public class SymbolsGridAdapter extends BaseAdapter {
 
     private String groupName;
-    private ArrayList<String> paths;
+    protected ArrayList<String> paths;
     private int pageNumber;
-    private Context mContext;
+    protected Context mContext;
 
-    private KeyClickListener mListener;
-    private HashMap<String, String> mapOfSymbols;
+    protected KeyClickListener mListener;
+    protected HashMap<String, String> mapOfSymbols;
+
+    /**
+     * c
+     * This is to be used by the subclasses in case they want to use custom ways to set the paths.
+     *
+     * @param context
+     * @param listener
+     */
+    protected SymbolsGridAdapter(Context context, KeyClickListener listener) {
+        this.mContext = context;
+        this.mListener = listener;
+        this.groupName = "";
+    }
 
     /**
      * Try to load the Map if the "keysdata.csv" file is present in the active folder
      */
     private void tryLoadingMap() {
-        this.mapOfSymbols = CSVParser.CSV2Map(mContext, groupName);
+        new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... params) {
+                SymbolsGridAdapter.this.mapOfSymbols = CSVParser.CSV2Map(mContext, groupName);
+                return null;
+            }
+        }.execute();
     }
 
     /**
@@ -76,15 +99,17 @@ public class SymbolsGridAdapter extends BaseAdapter {
 
                 @Override
                 public void onClick(View v) {
-                    mListener.keyClickedIndex(path);
+                    mListener.keyClickedIndex("\\" + path);
+                    Utils.insertRecent(groupName + path, path);
                 }
             });
-        } else {
+        } else if (mapOfSymbols.get(path) != null) {
             image.setOnClickListener(new OnClickListener() {
 
                 @Override
                 public void onClick(View v) {
                     mListener.keyClickedIndex(mapOfSymbols.get(path));
+                    Utils.insertRecent(groupName + path, mapOfSymbols.get(path));
                 }
             });
         }
@@ -107,7 +132,7 @@ public class SymbolsGridAdapter extends BaseAdapter {
         return position;
     }
 
-    private Bitmap getImage(String path) {
+    protected Bitmap getImage(String path) {
         AssetManager mngr = mContext.getAssets();
         InputStream in = null;
 

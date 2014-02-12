@@ -7,18 +7,18 @@ import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
 import android.widget.GridView;
+import android.widget.ListView;
 import com.dahale.ajinkya.painteq.SymbolsGridAdapter.KeyClickListener;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 
 public class SymbolsPagerAdapter extends PagerAdapter {
 
+    // TODO: behaves really jaggy. Sort it out.
     private String[] groupPaths;
-    ArrayList<String> paths, recent;
-    private static final int MAX_NO_OF_RECENT_SYMBOLS = 40;
+    ArrayList<String> paths;
     FragmentActivity mActivity;
     KeyClickListener mListener;
 
@@ -42,11 +42,17 @@ public class SymbolsPagerAdapter extends PagerAdapter {
         final View layout;
 
         if (position == 0) {
+            // TODO: Make the recent symbols update when this view comes on screen
             layout = mActivity.getLayoutInflater().inflate(
-                    R.layout.placeholder, null);
+                    R.layout.symbols_grid, null);
+            GridView grid = (GridView) layout.findViewById(R.id.symbols_grid);
+            grid.setAdapter(new RecentSymbolsGridAdapter(mActivity, mListener));
         } else if (position == 1) {
             layout = mActivity.getLayoutInflater().inflate(
-                    R.layout.placeholder, null);
+                    R.layout.custom_symbols_layout, null);
+
+            ((ListView) layout.findViewById(R.id.custom_symbols_list)).setAdapter(new CustomSymbolsAdapter(mActivity, mListener));
+
         } else {
             layout = mActivity.getLayoutInflater().inflate(
                     R.layout.symbols_grid, null);
@@ -54,20 +60,6 @@ public class SymbolsPagerAdapter extends PagerAdapter {
 
             new AsyncTask<Void, Void, SymbolsGridAdapter>() {
 
-                /**
-                 * Override this method to perform a computation on a background thread. The
-                 * specified parameters are the parameters passed to {@link #execute}
-                 * by the caller of this task.
-                 * <p/>
-                 * This method can call {@link #publishProgress} to publish updates
-                 * on the UI thread.
-                 *
-                 * @param params The parameters of the task.
-                 * @return A result, defined by the subclass of this task.
-                 * @see #onPreExecute()
-                 * @see #onPostExecute
-                 * @see #publishProgress
-                 */
                 @Override
                 protected SymbolsGridAdapter doInBackground(Void... params) {
                     String[] a = new String[0];
@@ -109,10 +101,4 @@ public class SymbolsPagerAdapter extends PagerAdapter {
         return view == object;
     }
 
-    private void addRecent(String path) {
-        if (!recent.contains(path)) {
-            recent.add(path);
-            if (recent.size() > MAX_NO_OF_RECENT_SYMBOLS) recent.remove(0);
-        }
-    }
 }

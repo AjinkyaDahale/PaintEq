@@ -24,9 +24,9 @@ public class CSVParser {
     public static HashMap<String, String> CSV2Map(Context context, String groupName) {
         HashMap<String, String> map = new HashMap<String, String>();
         AssetManager manager = context.getAssets();
-        InputStream is = null;
-        InputStreamReader isr = null;
-        BufferedReader br = null;
+        InputStream is;
+        InputStreamReader isr;
+        BufferedReader br;
         try {
             is = manager.open("mathsymbols/" + groupName + "keysdata.csv");
 
@@ -41,11 +41,8 @@ public class CSVParser {
             // reads to the end of the stream
             while ((value = br.readLine()) != null) {
                 Log.d(TAG, value);
-                String[] s2 = value.split(";");
-                map.put(s2[0], s2[1]);
-//                for (String s : value.split(";")) {
-//                    Log.d(TAG, s);
-//                }
+                String[] s = value.split(";");
+                map.put(s[0], s[1]);
             }
         } catch (IOException e) {
             e.printStackTrace();
