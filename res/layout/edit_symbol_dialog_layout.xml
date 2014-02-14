@@ -5,6 +5,7 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent">
     <TextView
+            android:id="@+id/dialog_message"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/insert_new_symbol"
@@ -12,7 +13,7 @@
             android:paddingBottom="8dp"
             android:paddingTop="8dp"/>
     <EditText
-            android:id="@+id/new_symbol_edit"
+            android:id="@+id/custom_symbol_edittext"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 </LinearLayout>

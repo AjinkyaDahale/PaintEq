@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import com.dahale.ajinkya.painteq.utils.Utils;
 
@@ -65,12 +66,19 @@ public class CustomSymbolsAdapter extends BaseAdapter {
             LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             v = inflater.inflate(R.layout.custom_symbols_layout_item, null);
             if (v != null) {
-                ((TextView) v.findViewById(R.id.custom_text)).setText(customSymbolCodes.get(position));
-                v.setOnClickListener(new View.OnClickListener() {
+                TextView t = ((TextView) v.findViewById(R.id.custom_text));
+                t.setText(customSymbolCodes.get(position));
+                t.setOnClickListener(new View.OnClickListener() {
 
                     @Override
                     public void onClick(View v) {
                         mListener.keyClickedIndex(customSymbolCodes.get(position));
+                    }
+                });
+                ((ImageButton) v.findViewById(R.id.delete_custom)).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Utils.removeCustom(position);
                     }
                 });
             }
