@@ -49,4 +49,6 @@
     <string name="comingsoon">Coming Soon</string>
     <string name="cancel">Cancel</string>
     <string name="add_symbol">Add Symbol</string>
+    <string name="delete">Delete</string>
+    <string name="edit">Edit</string>
 </resources>

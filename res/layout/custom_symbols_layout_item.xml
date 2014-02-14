@@ -11,6 +11,18 @@
             android:layout_weight="1"
             android:padding="10dp"
             />
-    <!-- Add edit/delete support -->
+    <!-- TODO: Complete edit/delete support in code-->
+    <ImageButton
+            android:id="@+id/edit_custom"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_action_edit"
+            android:contentDescription="@string/edit"/>
+    <ImageButton
+            android:id="@+id/delete_custom"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_action_discard"
+            android:contentDescription="@string/delete"/>
 
 </LinearLayout>
