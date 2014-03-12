@@ -75,13 +75,18 @@ public class CustomSymbolsAdapter extends BaseAdapter {
                         mListener.keyClickedIndex(customSymbolCodes.get(position));
                     }
                 });
-                ((ImageButton) v.findViewById(R.id.delete_custom)).setOnClickListener(new View.OnClickListener() {
+                ImageButton discard = (ImageButton) v.findViewById(R.id.delete_custom);
+                discard.setOnClickListener(new View.OnClickListener() {
+
                     @Override
                     public void onClick(View v) {
-                        Utils.removeCustom(position);
+                        Utils.getCustomSymbolCodes().remove(position);
+                        CustomSymbolsAdapter.this.notifyDataSetChanged();
                     }
                 });
             }
+        } else {
+            ((TextView) v.findViewById(R.id.custom_text)).setText(Utils.getCustomSymbolCodes().get(position));
         }
 
         return v;
