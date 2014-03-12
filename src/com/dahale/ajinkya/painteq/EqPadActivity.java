@@ -132,7 +132,7 @@ public class EqPadActivity extends FragmentActivity
         popUpView.findViewById(R.id.add_symbol).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                (new NewCustomSymbolDialogFragment()).show(EqPadActivity.this.getSupportFragmentManager(),"tag");
+                (new CustomSymbolDialogFragment("Type new symbol here:","\\")).show(EqPadActivity.this.getSupportFragmentManager(),"tag");
             }
         });
 
