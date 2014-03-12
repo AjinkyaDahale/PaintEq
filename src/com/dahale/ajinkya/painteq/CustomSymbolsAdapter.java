@@ -1,6 +1,7 @@
 package com.dahale.ajinkya.painteq;
 
 import android.content.Context;
+import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -84,9 +85,28 @@ public class CustomSymbolsAdapter extends BaseAdapter {
                         CustomSymbolsAdapter.this.notifyDataSetChanged();
                     }
                 });
+                ImageButton edit = (ImageButton) v.findViewById(R.id.edit_custom);
+                edit.setOnClickListener(new View.OnClickListener() {
+
+                    // FIXME: WHY is this not working? Should change the text immediately.
+                    @Override
+                    public void onClick(View v) {
+                        //Utils.getCustomSymbolCodes().set(position, "\\dummy");
+                        (new CustomSymbolDialogFragment("Edit Symbol",customSymbolCodes.get(position),position)).show(((FragmentActivity) mContext).getSupportFragmentManager(),"tag");
+                        CustomSymbolsAdapter.this.notifyDataSetChanged();
+                    }
+                });
+
+                ((ImageButton) v.findViewById(R.id.delete_custom)).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Utils.removeCustom(position);
+                    }
+                });
             }
         } else {
-            ((TextView) v.findViewById(R.id.custom_text)).setText(Utils.getCustomSymbolCodes().get(position));
+            ((TextView) v.findViewById(R.id.custom_text)).
+                    setText(Utils.getCustomSymbolCodes().get(position));
         }
 
         return v;

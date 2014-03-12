@@ -1,6 +1,7 @@
 package com.dahale.ajinkya.painteq.utils;
 
 import android.content.Context;
+import android.util.Log;
 
 import java.util.ArrayList;
 
@@ -38,8 +39,6 @@ public class Utils {
         return new Utils(context);
     }
 
-    // TODO: Complete this here or insert it somewhere else.
-
     /**
      * Inserts a symbol in group "Recent" if not already present. Also removes older symbols.
      *
@@ -71,6 +70,21 @@ public class Utils {
      */
     public static void insertCustom(String code) {
         getCustomSymbolCodes().add(code);
+    }
+
+    /**
+     * Inserts/edits a symbol in group "Custom".
+     *
+     * @param code Code for the custom symbol
+     * @param position Position if you want to edit,
+     *                 any other value to insert.
+     */
+    public static void insertOrEditCustom(String code, int position) {
+        Log.d(TAG, code + " " + position);
+        if(0<=position && position<getCustomSymbolCodes().size())
+            getCustomSymbolCodes().set(position,code);
+        else
+            getCustomSymbolCodes().add(code);
     }
 
     /**

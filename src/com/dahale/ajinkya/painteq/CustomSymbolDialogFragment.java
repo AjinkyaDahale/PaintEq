@@ -12,14 +12,19 @@ import com.dahale.ajinkya.painteq.utils.Utils;
 
 public class CustomSymbolDialogFragment extends DialogFragment {
     private String message, initialText;
+    private int position;
 
     public CustomSymbolDialogFragment(String message) {
-        this(message, "");
+        this(message, "",-1);
     }
 
     public CustomSymbolDialogFragment(String message, String initialText) {
+        this(message, initialText,-1);
+    }
+    public CustomSymbolDialogFragment(String message, String initialText, int position) {
         this.message = message;
         this.initialText = initialText;
+        this.position = position;
     }
 
     @Override
@@ -39,7 +44,7 @@ public class CustomSymbolDialogFragment extends DialogFragment {
                             EditText editText = (EditText) v.findViewById(R.id.custom_symbol_edittext);
                             if(editText!=null) {
                                 @SuppressWarnings("ConstantConditions") String s = editText.getText().toString();
-                                if (!s.equals("")) Utils.insertCustom(s);
+                                if (!s.equals("")) Utils.insertOrEditCustom(s,position);
                                 editText.requestFocus();
                             }
                         }
